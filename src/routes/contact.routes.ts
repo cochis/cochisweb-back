@@ -4,7 +4,7 @@ import { z } from "zod";
 
 import { validate } from "../middlewares/validate.middleware";
 import { asyncHandler } from "../utils/asyncHandler";
-import { ContactMessageModel } from "../models/contact-message.model";
+import { ContactMessage } from "../models/contact-message.model";
 
 export const contactRouter = Router();
 
@@ -34,7 +34,7 @@ contactRouter.post(
             return res.json({ ok: true });
         }
 
-        await ContactMessageModel.create({
+        await ContactMessage.create({
             name,
             email,
             message,
