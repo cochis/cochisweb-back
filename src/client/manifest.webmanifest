@@ -1,0 +1,33 @@
+{
+    "name": "Cochisweb - Full Stack Development",
+    "short_name": "Cochisweb",
+    "description": "Portafolio oficial de Oscar Alejandro Ramirez Rosas. Desarrollo Full-Stack con Angular, Node, MongoDB y DevOps.",
+    "theme_color": "#4A90E2",
+    "background_color": "#0B0F14",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/",
+    "lang": "es-MX",
+    "dir": "ltr",
+    "icons": [
+        {
+            "src": "assets/brand/cw_icon_transparent_letters_white_192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "assets/brand/cw_icon_transparent_letters_white_512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "business",
+        "portfolio",
+        "development",
+        "technology"
+    ]
+}
