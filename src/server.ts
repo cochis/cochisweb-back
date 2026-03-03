@@ -4,6 +4,7 @@ import { ENV } from "./config/env.js";
 
 import express from "express";
 import path from "path";
+import fs from "fs";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -14,48 +15,82 @@ async function main() {
     const app = createApp();
 
     /**
-     * ✅ 1) Servir uploads (imágenes)
-     * Ruta física: apps/api/uploads
-     * URL pública:  /uploads/<carpeta>/<archivo>
+     * ✅ 1) Uploads estáticos
+     * Carpeta real: apps/api/uploads
+     * URL pública:  /uploads/...
      */
     const uploadsDir = path.join(process.cwd(), "uploads");
-    app.use("/uploads", express.static(uploadsDir, { maxAge: "7d", etag: true }));
-
-    /**
-     * ✅ 2) Servir Angular build (SPA)
-     * RECOMENDADO: poner el build del front dentro de:
-     * apps/api/dist/client
-     *
-     * Entonces en runtime:
-     * dist/client/index.html
-     * dist/client/*.js
-     */
-    const webRoot = path.join(__dirname, "client"); // dist/client
     app.use(
-        express.static(webRoot, {
-            index: false,
+        "/uploads",
+        express.static(uploadsDir, {
             etag: true,
-            maxAge: "1y",
+            maxAge: "7d",
+            redirect: false,
+            fallthrough: true, // ✅ no lances 404 aquí
         })
     );
 
     /**
-     * ✅ 3) Fallback SPA
+     * ✅ 2) Angular build
+     * Debe existir: apps/api/dist/client/index.html
+     */
+    const webRoot = path.join(process.cwd(), "dist", "client"); // ✅ sin __dirname
+    const indexPath = path.join(webRoot, "index.html");
+
+    // 🔎 Log útil
+    console.log(`[web] static root: ${webRoot}`);
+    console.log(`[uploads] static root: ${uploadsDir}`);
+
+    // ✅ Si no existe el build, avisa claro (evitas 500 confusos)
+    if (!fs.existsSync(indexPath)) {
+        console.warn(
+            `[web] WARNING: No existe ${indexPath}. ` +
+            `Construye Angular y cópialo a apps/api/dist/client`
+        );
+    }
+
+    // ✅ Sirve assets reales (chunks, css, etc.)
+    app.use(
+        express.static(webRoot, {
+            index: false,       // ✅ el index lo servimos en fallback
+            etag: true,
+            maxAge: "1y",
+            redirect: false,    // ✅ evita redirects de carpetas
+            fallthrough: true,  // ✅ deja pasar al fallback
+        })
+    );
+
+    /**
+     * ✅ 3) Fallback SPA (solo cuando el cliente pide HTML)
+     * IMPORTANTE:
+     * - Si piden un .js/.css y no existe, NO mandes index.html.
+     * - Si piden HTML (navegación), manda index.html.
      */
     app.get("*", (req, res) => {
+        // API no encontrada
         if (req.path.startsWith("/api")) {
             return res.status(404).json({
                 ok: false,
-                msg: "Ruta API no encontrada. Revisa la documentación.",
+                msg: "Ruta API no encontrada.",
             });
         }
-        return res.sendFile(path.join(webRoot, "index.html"));
+
+        // Si parece request de archivo (chunk, css, ico, png) y no existe -> 404 (NO index.html)
+        const looksLikeFile = path.extname(req.path).length > 0;
+        if (looksLikeFile) return res.status(404).end();
+
+        // Solo servir index.html si existe
+        if (!fs.existsSync(indexPath)) {
+            return res
+                .status(500)
+                .send("Frontend build no encontrado. Falta dist/client/index.html");
+        }
+
+        return res.sendFile(indexPath);
     });
 
     app.listen(ENV.PORT, () => {
         console.log(`[api] listening on :${ENV.PORT} (${ENV.NODE_ENV})`);
-        console.log(`[web] static root: ${webRoot}`);
-        console.log(`[uploads] static root: ${uploadsDir}`);
     });
 }
 
