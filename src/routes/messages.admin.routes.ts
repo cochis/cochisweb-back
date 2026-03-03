@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { requireAuth } from "../middlewares/auth.middleware";
-import { asyncHandler } from "../utils/asyncHandler";
-import { ContactMessage } from "../models/contact-message.model";
+import { requireAuth } from "../middlewares/auth.middleware.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { ContactMessage } from "../models/contact-message.model.js";
 
 export const messagesAdminRouter = Router();
 

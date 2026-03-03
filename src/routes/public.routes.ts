@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { asyncHandler } from "../utils/asyncHandler";
+import { asyncHandler } from "../utils/asyncHandler.js";
 import { listPublicProjects, getPublicProjectBySlug } from "../services/projects.service.js";
 import { listSkills, listServices } from "../services/public.service.js";
 

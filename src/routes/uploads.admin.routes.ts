@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { requireAuth } from '../middlewares/auth.middleware';
-import { asyncHandler } from '../utils/asyncHandler';
-import { uploadProjectImage } from '../utils/upload';
+import { requireAuth } from '../middlewares/auth.middleware.js';
+import { asyncHandler } from '../utils/asyncHandler.js';
+import { uploadProjectImage } from '../utils/upload.js';
 
 export const uploadsAdminRouter = Router();
 

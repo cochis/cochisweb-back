@@ -2,15 +2,14 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
-import { ENV } from "./config/env";
 import path from 'path';
-import { authRouter } from "./routes/auth.routes";
-import { projectsPublicRouter } from "./routes/projects.public.routes";
-import { projectsAdminRouter } from "./routes/projects.admin.routes";
-import { uploadsAdminRouter } from "./routes/uploads.admin.routes";
-import { contactRouter } from "./routes/contact.routes";
-import { messagesAdminRouter } from "./routes/messages.admin.routes";
-import { errorHandler } from "./middlewares/error.middleware";
+import { authRouter } from "./routes/auth.routes.js";
+import { projectsPublicRouter } from "./routes/projects.public.routes.js";
+import { projectsAdminRouter } from "./routes/projects.admin.routes.js";
+import { uploadsAdminRouter } from "./routes/uploads.admin.routes.js";
+import { contactRouter } from "./routes/contact.routes.js";
+import { messagesAdminRouter } from "./routes/messages.admin.routes.js";
+import { errorHandler } from "./middlewares/error.middleware.js";
 
 export function createApp() {
     const app = express();

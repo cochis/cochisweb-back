@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
-import { ENV } from "../config/env";
+import { ENV } from "../config/env.js";
+
 
 export type JwtPayload = { sub: string; email: string };
 

@@ -2,10 +2,10 @@ import { Router } from "express";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 
-import { validate } from "../middlewares/validate.middleware";
-import { asyncHandler } from "../utils/asyncHandler";
-import { User } from "../models/user.model";
-import { signJwt } from "../utils/jwt";
+import { validate } from "../middlewares/validate.middleware.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { User } from "../models/user.model.js";
+import { signJwt } from "../utils/jwt.js";
 
 export const authRouter = Router();
 

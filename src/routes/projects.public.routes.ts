@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { asyncHandler } from "../utils/asyncHandler";
-import { Project } from "../models/project.model";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { Project } from "../models/project.model.js";
 
 export const projectsPublicRouter = Router();
 

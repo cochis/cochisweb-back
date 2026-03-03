@@ -2,9 +2,9 @@ import { Router } from "express";
 import rateLimit from "express-rate-limit";
 import { z } from "zod";
 
-import { validate } from "../middlewares/validate.middleware";
-import { asyncHandler } from "../utils/asyncHandler";
-import { ContactMessage } from "../models/contact-message.model";
+import { validate } from "../middlewares/validate.middleware.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { ContactMessage } from "../models/contact-message.model.js";
 
 export const contactRouter = Router();
 

@@ -2,11 +2,14 @@
     "name": "@cochisweb/api",
     "version": "1.0.0",
     "private": true,
-    "main": "dist/server.js",
+    "main": "dist/index.js",
+    "type": "module",
     "scripts": {
-        "dev": "nodemon",
-        "build": "tsc -p tsconfig.json",
-        "start": "node dist/server.js",
+        "dev": "nodemon --watch src --ext ts --exec ts-node src/server.ts",
+        "build": "tsc",
+        "start": "node dist/index.js",
+        "start:prod": "NODE_ENV=production node dist/index.js",
+        "clean": "rm -rf dist",
         "seed": "node dist/scripts/seed.js"
     },
     "dependencies": {

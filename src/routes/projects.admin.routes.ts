@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { z } from "zod";
 
-import { requireAuth } from "../middlewares/auth.middleware";
-import { validate } from "../middlewares/validate.middleware";
-import { asyncHandler } from "../utils/asyncHandler";
-import { Project } from "../models/project.model";
-import { slugify } from "../utils/slugify";
+import { requireAuth } from "../middlewares/auth.middleware.js";
+import { validate } from "../middlewares/validate.middleware.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { Project } from "../models/project.model.js";
+import { slugify } from "../utils/slugify.js";
 
 export const projectsAdminRouter = Router();
 

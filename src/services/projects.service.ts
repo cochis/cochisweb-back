@@ -1,5 +1,5 @@
 import { FilterQuery } from 'mongoose';
-import { Project, ProjectDoc } from '../models/project.model';
+import { Project, ProjectDoc } from '../models/project.model.js';
 
 export type ListPublicProjectsParams = {
     q?: string;
