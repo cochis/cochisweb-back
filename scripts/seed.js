@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
-import { connectMongo } from "../src/config/mongo";
-import { ENV } from "../src/config/env";
+import { connectMongo } from "../src/config/mongo.js";
+import { ENV } from "../src/config/env.js";
 import { User } from "../src/models/user.model.js";
 
 async function run() {
